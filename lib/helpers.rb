@@ -1,5 +1,5 @@
 @deploy_require = "require File.join('vendor', 'plugins', 'awesomeness', 'lib', 'recipies')"
-@deploy_path = File.join(File.dirname(__FILE__), '..','..', '..', '..', 'config', 'deploy')
+@deploy_path = File.join(File.dirname(__FILE__), '..','..', '..', '..', 'config', 'deploy.rb')
 
 def gsub_file(path, regexp, *args, &block)
   content = File.read(path).gsub(regexp, *args, &block)
