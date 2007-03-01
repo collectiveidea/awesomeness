@@ -17,7 +17,7 @@ Capistrano.configuration(:must_exist).load do
   end
   
   desc "Based on :long_deploy, this is what :deploy *should* be. (uses disable/enable_web)"
-  task :deploy_with_migrations do
+  task :deploy do
     transaction do
       update_code
       disable_web
