@@ -85,10 +85,10 @@ Capistrano.configuration(:must_exist).load do
     run "mysqldump -u #{db['username']} --password=#{db['password']} #{db['database']} | bzip2 -c > #{file}"  do |ch, stream, out|
       puts out
     end
-    `mkdir -p #{File.dirname(__FILE__)}/../backups/`
+    `mkdir -p #{File.dirname(__FILE__)}/../../../../backups/`
     get file, "backups/#{filename}"
     # capistrano < 1.4
-    # `rsync #{user}@#{roles[:db][0].host}:#{filename} #{File.dirname(__FILE__)}/../backups/`
+    # `rsync #{user}@#{roles[:db][0].host}:#{filename} #{File.dirname(__FILE__)}/../../../../backups/`
     delete file
   end
 end
