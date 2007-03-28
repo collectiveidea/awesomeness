@@ -20,3 +20,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+desc 'Rename all .rhtml files in app/views to .erb'
+task :rename_all_to_erb do |t|
+  Dir.glob('app/views/**/*.rhtml').each do |file|
+    puts `svn mv #{file} #{file.gsub(/\.rhtml$/, '.erb')}`
+  end
+end
