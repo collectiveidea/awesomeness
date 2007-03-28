@@ -86,7 +86,12 @@ Capistrano.configuration(:must_exist).load do
     file = "/tmp/#{filename}"
     on_rollback { delete file }
     db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'config', 'database.yml'))).result)['production']
-    run "mysqldump -u #{db['username']} --password=#{db['password']} #{db['database']} | bzip2 -c > #{file}"  do |ch, stream, out|
+    host = '' 
+    if db['host']
+      host = "-h #{db['host']}"
+    end
+    
+    run "mysqldump #{host} -u #{db['username']} --password=#{db['password']} #{db['database']} | bzip2 -c > #{file}"  do |ch, stream, out|
       puts out
     end
     `mkdir -p #{File.dirname(__FILE__)}/../../../../backups/`
