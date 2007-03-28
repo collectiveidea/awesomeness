@@ -73,6 +73,10 @@ Capistrano.configuration(:must_exist).load do
     backup
   end
 
+  desc "Clean out old revisions every time to keep server load low."
+  task :after_deploy do
+    cleanup
+  end
 
   desc "Backup the remote production database"
   task :backup, :roles => :db, :only => { :primary => true } do
