@@ -21,6 +21,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+#
+# Interesting Stuff
+#
+
 desc 'Rename all .rhtml files in app/views to .erb'
 task :rename_all_to_erb do |t|
   Dir.glob('app/views/**/*.rhtml').each do |file|

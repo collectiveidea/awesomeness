@@ -1,6 +1,8 @@
 Collective Idea's Awesomeness
 =============
 
-A collection of stuff that we use a lot, but not generic enough to go in another plugin.
+A collection of stuff that we use often, but not generic enough to go in another plugin.
 
-Right now, its just some capistrano tasks.
+Right now, it is simply:
+* some capistrano tasks
+* a rake task to rename all .rhtml files to .erb
