@@ -83,21 +83,18 @@ Capistrano.configuration(:must_exist).load do
     require 'yaml'
     
     filename = "#{application}.dump.#{Time.now.to_i}.sql.bz2"
-    file = "/tmp/#{filename}"
-    on_rollback { delete file }
+    tmpfile = "/tmp/#{filename}"
+    on_rollback { delete tmpfile }
     db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'config', 'database.yml'))).result)['production']
-    host = '' 
-    if db['host']
-      host = "-h #{db['host']}"
-    end
+    host = db['host'] ? "-h #{db['host']}" : ''
     
-    run "mysqldump #{host} -u #{db['username']} --password=#{db['password']} #{db['database']} | bzip2 -c > #{file}"  do |ch, stream, out|
+    run "mysqldump #{host} -u #{db['username']} --password=#{db['password']} #{db['database']} | bzip2 -c > #{tmpfile}"  do |ch, stream, out|
       puts out
     end
     `mkdir -p #{File.dirname(__FILE__)}/../../../../backups/`
-    get file, "backups/#{filename}"
+    get tmpfile, "backups/#{filename}"
     # capistrano < 1.4
     # `rsync #{user}@#{roles[:db][0].host}:#{filename} #{File.dirname(__FILE__)}/../../../../backups/`
-    delete file
+    delete tmpfile
   end
 end

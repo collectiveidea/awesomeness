@@ -6,3 +6,8 @@ A collection of stuff that we use often, but not generic enough to go in another
 Right now, it is simply:
 * some capistrano tasks
 * a rake task to rename all .rhtml files to .erb
+
+
+TODO:
+  * Phone cleanup/validations
+  
