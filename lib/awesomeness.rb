@@ -1,5 +1,2 @@
-module CollectiveIdea
-  module Awesomeness
-    # This isn't really that awesome yet.
-  end
-end
+
+Dir[File.dirname(__FILE__) + "/awesomeness/**/*.rb"].each {|f| require f }
