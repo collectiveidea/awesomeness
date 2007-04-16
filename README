@@ -4,9 +4,10 @@ Collective Idea's Awesomeness
 A collection of stuff that we use often, but not generic enough to go in another plugin.
 
 Right now, it is simply:
+* A few core extensions, mostly to the collection classes
 * some capistrano tasks
 * a rake task to rename all .rhtml files to .erb
-
+* some test assertionas
 
 TODO:
   * Phone cleanup/validations
