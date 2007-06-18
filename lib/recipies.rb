@@ -97,4 +97,15 @@ Capistrano.configuration(:must_exist).load do
     # `rsync #{user}@#{roles[:db][0].host}:#{filename} #{File.dirname(__FILE__)}/../../../../backups/`
     delete tmpfile
   end
+  
+  desc "Backup the remote production log"
+  task :backup_log, :roles => :app do
+    
+    filename = "#{application}.#{Time.now.to_i}.production.log"
+        
+    `mkdir -p #{File.dirname(__FILE__)}/../../../../backups/`
+    get "#{shared_path}/log/production.log", "backups/#{filename}"
+    # capistrano < 1.4
+    # `rsync #{user}@#{roles[:db][0].host}:#{filename} #{File.dirname(__FILE__)}/../../../../backups/`
+  end
 end
