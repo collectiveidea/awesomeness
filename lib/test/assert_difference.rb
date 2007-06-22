@@ -76,4 +76,4 @@ private
     (method.arity == 0) ? method.call : method.call(obj, *args)
   end
   
-end
+end unless respond_to?(:assert_difference)
