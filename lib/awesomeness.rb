@@ -24,16 +24,20 @@ module ActionView
       
       # Widon't
       def widont(text)
-        text.widont
+        if text.blank?
+          ""
+        else
+          text.widont
+        end
       end
       
       def textilize_with_widont(text)
-        textilize_without_widont(text.widont)
+        textilize_without_widont widont(text)
       end
       alias_method_chain :textilize, :widont
       
       def textilize_without_paragraph_with_widont(text)
-        textilize_without_paragraph_without_widont(text.widont)
+        textilize_without_paragraph_without_widont widont(text)
       end
       alias_method_chain :textilize_without_paragraph, :widont
     end
