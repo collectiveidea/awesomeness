@@ -20,9 +20,11 @@ module ActionView
       alias_method_chain :excerpt, :better_default
       
       # Widon't
+      # We use this method instead of String#widont directly because textilize is often called with nil.
+      # This duplicates textilize's solution of returning the empty string if blank.
       def widont(text)
         if text.blank?
-          ""
+          ''
         else
           text.widont
         end
