@@ -1,4 +1,3 @@
-
 Dir[File.dirname(__FILE__) + "/awesomeness/**/*.rb"].each {|f| require f }
 
 if RAILS_ENV == 'test'
@@ -12,14 +11,12 @@ module ActionView
       
       def truncate_with_better_default(text, length = 30, truncate_string = "…")
         truncate_without_better_default(text, length, truncate_string)
-      end
-      
+      end      
       alias_method_chain :truncate, :better_default
       
       def excerpt_with_better_default(text, phrase, radius = 100, excerpt_string = "…")
         excerpt_without_better_default(text, phrase, radius, excerpt_string)
       end
-      
       alias_method_chain :excerpt, :better_default
       
       # Widon't
@@ -42,23 +39,4 @@ module ActionView
       alias_method_chain :textilize_without_paragraph, :widont
     end
   end
-end
-
-class String
-  # Widon't
-  # Based on the original by Shaun Inman: http://shauninman.com/archive/2006/08/22/widont_wordpress_plugin
-  # And the Ruby versions here: http://mucur.name/posts/widon-t-helper-for-rails-2
-  # This version replaces &nbsp; with a unicode non-breaking space (option-space on a Mac)
-  def widont
-    self.gsub(/([^\s])\s+([^\s]+)(\s*)$/, '\1 \2\3')
-  end
-end
-
-class Object
-  # See http://moonbase.rydia.net/mental/blog/programming/eavesdropping-on-expressions
-  # Will be added in Ruby 1.9
-  def tap
-    yield self
-    self
-  end if RUBY_VERSION < '1.9'
 end

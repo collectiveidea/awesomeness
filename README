@@ -1,13 +1,20 @@
 Collective Idea's Awesomeness
-=============
+=============================
 
 A collection of stuff that we use often, but not generic enough to go in another plugin.
 
-Right now, it is simply:
+If you've stumbled across this and love/hate it, let us know!
+
+Right now, it consists of:
 * A few core extensions, mostly to the collection classes
+** Object#tap (http://moonbase.rydia.net/mental/blog/programming/eavesdropping-on-expressions)
+** String#widont to make typography nicer (http://shauninman.com/archive/2006/08/22/widont_wordpress_plugin)
+* Unicode TextHelper Additions
+** Change the default truncate & excerpt string to … instead of ...
+** Add widont to textilize methods
 * some capistrano tasks
 * a rake task to rename all .rhtml files to .erb
-* some test assertionas
+* some test assertions
 
 TODO:
   * Phone cleanup/validations
