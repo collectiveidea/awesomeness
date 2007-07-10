@@ -16,7 +16,7 @@ module ActionView
         # Unlike the regular truncate method, this avoids the problem with cutting
         # in the middle of an entity (or multibyte character) ex.: truncate("this &amp; that",9)  => "this &am..."
         # though it will not be the exact length.
-        text[/\A.{#{.length}}\w*/m][/.*\w/m] + truncate_string
+        text[/\A.{#{length}}\w*/m][/.*\w/m] + truncate_string
       end
       
       # Better versions of standard truncate and excerpt
