@@ -13,8 +13,7 @@ module ActionView
       # First regex truncates to the length, plus the rest of that word, if any.
       # Second regex removes any trailing whitespace or punctuation (except ;).
       # Unlike the regular truncate method, this avoids the problem with cutting
-      # in the middle of an entity (or multibyte character) 
-      # ex.: truncate("this &amp; that",9)  => "this &am..."
+      # in the middle of an entity ex.: truncate("this &amp; that",9)  => "this &am..."
       # though it will not be the exact length.
       def awesome_truncate(text, length = 30, truncate_string = "…")
         return if text.nil?
