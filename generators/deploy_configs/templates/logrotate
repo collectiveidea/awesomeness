@@ -1,0 +1,13 @@
+<%= config.shared_path %>/log/*log {
+    daily
+    rotate 7
+    compress
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+      for i in `ls <%= config.shared_path %>/log/*.pid`; do
+         kill -USR2 `cat $i`
+      done
+    endscript
+}
