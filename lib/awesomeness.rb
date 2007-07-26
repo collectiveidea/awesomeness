@@ -19,7 +19,7 @@ module CollectiveIdea #:nodoc:
         private
         def remove_trailing_slash
           url = request.url.sub(/(.+)\/(\?.+)?$/, '\1\2')
-          if url != request.url
+          if request.request_uri.length > 1 && url != request.url
             headers['Status'] = '301 Moved Permanently'
             redirect_to url
           end
@@ -60,11 +60,7 @@ module ActionView
       # We use this method instead of String#widont directly because textilize is often called with nil.
       # This duplicates textilize's solution of returning the empty string if blank.
       def widont(text)
-        if text.blank?
-          ''
-        else
-          text.widont
-        end
+        text.blank? ? '' : text.widont
       end
       
       def textilize_with_widont(text)
