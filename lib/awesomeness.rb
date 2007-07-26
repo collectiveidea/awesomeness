@@ -4,6 +4,29 @@ if RAILS_ENV == 'test'
   Dir[File.dirname(__FILE__) + "/test/**/*.rb"].each {|f| require f }
 end
 
+# Disambiguate URLs by removing trailing slashes
+# Idea from http://fleetingideas.com/post/6539239
+module CollectiveIdea #:nodoc:
+  module ActionController
+    module TrailingSlash #:nodoc:
+      def self.included(base) #:nodoc:
+        base.before_filter :remove_trailing_slash
+        base.send :include, InstanceMethods
+      end
+
+      module InstanceMethods
+        private
+        def remove_trailing_slash
+          url = request.url.sub(/(.+)\/(\?.+)?$/, '\1\2')
+          if url != request.url
+            headers['Status'] = '301 Moved Permanently'
+            redirect_to url
+          end
+        end
+      end
+    end
+  end
+end
 
 module ActionView
   module Helpers

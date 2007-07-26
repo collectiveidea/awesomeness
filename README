@@ -12,6 +12,7 @@ Right now, it consists of:
 * Unicode TextHelper Additions
 ** Change the default truncate & excerpt string to … instead of ...
 ** Add widont to textilize methods
+* Transparent removal of trailing slashes in URLs.
 * some capistrano tasks
 * a rake task to rename all .rhtml files to .erb
 * some test assertions
