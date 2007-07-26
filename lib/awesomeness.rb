@@ -6,6 +6,7 @@ end
 
 # Disambiguate URLs by removing trailing slashes
 # Idea from http://fleetingideas.com/post/6539239
+# This version works with query strings.
 module CollectiveIdea #:nodoc:
   module ActionController
     module TrailingSlash #:nodoc:
