@@ -45,6 +45,14 @@ module ActionView
         text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
       end
       
+      def truncate_with_title(text, length = 30, truncate_string = "…")
+        if text.chars.length > length
+          content_tag :span, truncate(text), :title => text
+        else
+          text
+        end
+      end
+      
       # Better versions of standard truncate and excerpt
       def truncate_with_better_default(text, length = 30, truncate_string = "…")
         truncate_without_better_default(text, length, truncate_string)
