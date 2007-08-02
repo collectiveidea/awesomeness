@@ -21,7 +21,7 @@ module CollectiveIdea #:nodoc:
           url = request.url.sub(/(.+)\/(\?.+)?$/, '\1\2')
           if request.request_uri.length > 1 && url != request.url
             headers['Status'] = '301 Moved Permanently'
-            redirect_to url
+            redirect_to url and return false
           end
         end
       end
