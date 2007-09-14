@@ -1,11 +1,12 @@
-@deploy_require = "require File.join('vendor', 'plugins', 'awesomeness', 'lib', 'recipies')"
-@deploy_path = File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'deploy.rb')
+load_tasks = <<-EOF
+load_paths.unshift File.expand_path(File.dirname(__FILE__) + '/../vendor/plugins/awesomeness/recipies')
+load 'awesomeness'
 
-def gsub_file(path, regexp, *args, &block)
-  content = File.read(path).gsub(regexp, *args, &block)
-  File.open(path, 'wb') { |file| file.write(content) }
-end
+EOF
 
-gsub_file @deploy_path, /\A\s*(#{Regexp.escape(@deploy_require)}\s*\n)?/mi, "#{@deploy_require}\n"
+deploy_path = File.join(File.dirname(__FILE__), '..', '..', '..', 'config', 'deploy.rb')
+
+content = load_tasks + File.read(deploy_path)
+File.open(deploy_path, 'wb') {|file| file.write(content) }
 
 puts IO.read(File.join(File.dirname(__FILE__), 'README'))
