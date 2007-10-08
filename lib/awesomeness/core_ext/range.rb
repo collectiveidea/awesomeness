@@ -9,8 +9,8 @@ class Range
     else
       include_without_range?(value)
     end
-  end
-  alias_method_chain :include?, :range
+  end unless defined?(ActiveSupport::CoreExtensions::Range::IncludeRange)
+  alias_method_chain(:include?, :range) unless defined?(ActiveSupport::CoreExtensions::Range::IncludeRange)
   
   def overlap?(range)
     self.include?(range.first) ||
