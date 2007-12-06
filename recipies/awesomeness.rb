@@ -14,7 +14,7 @@ after  "deploy:start",       "deploy:web:enable"
 after  "deploy",             "deploy:cleanup"
 after  "deploy:migrations",  "deploy:cleanup"
 
-load 'logs'
-load 'backup'
-load 'mongrel'
 load 'apache'
+load 'backup'
+load 'logs'
+load 'mongrel'
