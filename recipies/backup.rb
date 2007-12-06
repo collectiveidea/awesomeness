@@ -1,6 +1,6 @@
 before "deploy:migrate", "backup:create"
 
-namespace :backup
+namespace :backup do
 
   def set_backup_config
     _cset :backups_path, "#{shared_path}/backups"
@@ -16,11 +16,16 @@ namespace :backup
   task :create, :roles => :db, :only => {:primary => true} do
     set_backup_config
     backup_dir = "#{backups_path}/#{backup_name}"
+    rails_env = fetch(:rails_env, "production")
+    
+    remove_command = "rm -rf #{backup_dir}; true"
+    on_rollback { run remove_command }
+    
     run "mkdir -p #{backup_dir}"
-    run "rake db:fixtures:dump RAILS_ENV=#{rails_env} FIXTURE_DIR=#{backup_dir}"
+    run "cd #{current_path}; rake db:fixtures:dump RAILS_ENV=#{rails_env} FIXTURE_DIR=#{backup_dir}"
     run "cp #{current_path}/db/schema.rb #{backup_dir}/"
     run "tar -C #{backups_path} -czf #{backup_name}.tar.gz #{backup_dir}"
-    run "rm -rf #{backup_dir}"
+    run remove_command
     get "#{backup_dir}.tar.gz", "backups/"
     # require 'yaml'
     # 
