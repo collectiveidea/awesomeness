@@ -9,6 +9,7 @@ namespace :backup do
     run "cd #{current_path}; rake backup:create RAILS_ENV=#{rails_env} BACKUP_DIR=#{backup_path}"
     latest = capture("cd #{current_path}; rake -s backup:latest BACKUP_DIR=#{backup_path}").strip
     run "tar -C #{backup_path} -czf #{backup_path}/#{latest}.tar.gz #{latest}"
+    `mkdir -p backups`
     get "#{backup_path}/#{latest}.tar.gz", "backups/#{latest}.tar.gz"
     `tar -C backups -zxf backups/#{latest}.tar.gz`
     run "rm #{backup_path}/#{latest}.tar.gz"
