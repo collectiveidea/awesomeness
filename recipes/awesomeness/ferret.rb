@@ -6,12 +6,12 @@ namespace :deploy do
   namespace :ferret do
     desc "Start the ferret server"
     task :start do
-      run "cd #{current_path}; script/ferret_server -e #{rails_env} start"
+      run "cd #{current_path}; script/ferret_server -e #{fetch(:rails_env, 'production')} start"
     end
 
     desc "Stop the ferret server"
     task :stop do
-      run "cd #{current_path}; script/ferret_server -e #{rails_env} stop"
+      run "cd #{current_path}; script/ferret_server -e #{fetch(:rails_env, 'production')} stop"
     end
 
     desc "Restart the ferret server"
