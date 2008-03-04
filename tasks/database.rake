@@ -26,10 +26,10 @@ namespace :db do
     
     desc "Create YAML fixtures from data in the current environment's database. Dump specific tables using TABLES=x[,y,z]."
     task :dump => :environment do
-      skip_tables = ["schema_info", "sessions"] 
       ActiveRecord::Base.establish_connection(RAILS_ENV.to_sym)
       fixtures_dir = ENV['FIXTURES_DIR'] || 'test/fixtures'
-      tables = ENV['TABLES'] || ActiveRecord::Base.connection.tables
+      skip_tables = ENV['SKIP_TABLES'] ? ENV['SKIP_TABLES'].split(/,/) : ["sessions"]
+      tables = ENV['TABLES'] ? ENV['TABLES'].split(/,/) : ActiveRecord::Base.connection.tables
       sql = "SELECT * FROM %s LIMIT %d OFFSET %d"
       limit = 50
       (tables - skip_tables).each do |table_name| 
