@@ -48,6 +48,12 @@ module ActionView
         textilize_without_paragraph_without_widont widont(text)
       end
       alias_method_chain :textilize_without_paragraph, :widont
+      
+      # Inserts a unicode non-breaking space character ' '
+      # since &nbsp; shouldn't be used in proper XHTML
+      def nbsp
+        ' '
+      end
     end
   end
 end
