@@ -5,18 +5,48 @@ A collection of stuff that we use often, but not generic enough to go in another
 
 If you've stumbled across this and love/hate it, let us know!
 
-Right now, it consists of:
-* A few core extensions, mostly to the collection classes
-** Object#tap (http://moonbase.rydia.net/mental/blog/programming/eavesdropping-on-expressions)
-** String#widont to make typography nicer (http://shauninman.com/archive/2006/08/22/widont_wordpress_plugin)
-* Unicode TextHelper Additions
-** Change the default truncate & excerpt string to … instead of ...
-** Add widont to textilize methods
-* Transparent removal of trailing slashes in URLs.
-* some capistrano tasks
-* a rake task to rename all .rhtml files to .erb
-* some test assertions
+== Core Extensions
 
-TODO:
-  * Phone cleanup/validations
-  
+* Object#tap (http://moonbase.rydia.net/mental/blog/programming/eavesdropping-on-expressions)
+
+* String#widont to make typography nicer (http://shauninman.com/archive/2006/08/22/widont_wordpress_plugin)
+
+* Array#uniq with a block
+
+  >> %w(the cow jumped over the moon).uniq {|s| s.length }
+  => ["the", "jumped", "over"]
+
+* Round floats to the nearest x
+
+  >> 5.38475.round(0.5)
+  => 5.5
+
+* Hash goodies
+
+  >> {:a => [1,3,4], :b => [2,5]}.without(:a => 1)
+  => {:a => [3,4], :b => [2,5]}
+
+  >> {:a => "", :b => nil, :c => 1}.compact
+  => {:c => 1}
+
+* And more…
+
+== Rails Helpers
+
+* Unicode TextHelper additions that change the default truncate & excerpt string to an elipsis (…) instead of just three periods (...)
+
+* Add widont to textilize methods
+
+* Transparent removal of trailing slashes in URLs
+
+== Rake Tasks
+
+== Capistrano Recipes
+
+* Use :remote_cache by default
+
+* Disable and enable web during restarts
+
+* Run deploy:cleanup after deploys
+
+* Backups

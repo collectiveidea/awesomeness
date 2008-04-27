@@ -1,3 +1,6 @@
+# These tasks replace the built-in Rails tasks for dumping and loading the schema,
+# allowing you to specify the FIXTURES_DIR to use for dumping and loading.
+
 # http://matthewbass.com/2007/03/07/overriding-existing-rake-tasks/
 Rake::TaskManager.class_eval do
   def remove_task(task_name)

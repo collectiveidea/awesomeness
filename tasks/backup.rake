@@ -21,7 +21,9 @@ namespace :backup do
     `cp db/schema.rb #{ENV['FIXTURES_DIR']}/`
   end
   
+  desc "Create a new backup of the database"
   task :create => [:environment, 'db:fixtures:dump', 'db:schema:dump']
   
+  desc "Restore a backup of the database. Use VERSION to specify a version other than the latest."
   task :restore => [:latest, :environment, 'db:schema:load', 'db:fixtures:load']
 end
