@@ -11,14 +11,14 @@ _cset(:skip_backup_tables, ['sessions'])
 
 namespace :backup do
   def latest
-    capture("cd #{current_path}; rake -s backup:latest BACKUP_DIR=#{backup_path}").strip
+    capture("cd #{current_path}; rake -s db:backup:latest BACKUP_DIR=#{backup_path}").strip
   end
 
   desc "Create a backup on the server"
   task :create, :roles => :db, :only => {:primary => true} do
     rails_env = fetch(:rails_env, "production")
     skip_tables = Array(skip_backup_tables).join(',')
-    run "cd #{current_path}; rake backup:create RAILS_ENV=#{rails_env} BACKUP_DIR=#{backup_path} SKIP_TABLES=#{skip_tables}"
+    run "cd #{current_path}; rake db:backup:create RAILS_ENV=#{rails_env} BACKUP_DIR=#{backup_path} SKIP_TABLES=#{skip_tables}"
   end
   
   desc "Retreive a backup from the server. Gets the latest by default, set :backup_version to specify which version to copy"
