@@ -17,8 +17,8 @@ namespace :db do
     desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
     task :load => :environment do
       require 'active_record/fixtures'
-      fixtures_dir = ENV['FIXTURES_DIR'] || 'test/fixtures'
       ActiveRecord::Base.establish_connection(RAILS_ENV.to_sym)
+      fixtures_dir = ENV['FIXTURES_DIR'] || File.join(RAILS_ROOT, 'test', 'fixtures')
       (ENV['FIXTURES'] ? ENV['FIXTURES'].split(/,/) : Dir.glob(File.join(fixtures_dir, '*.{yml,csv}'))).each do |fixture_file|
         Fixtures.create_fixtures(fixtures_dir, File.basename(fixture_file, '.*'))
       end
