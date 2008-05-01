@@ -1,7 +1,7 @@
 # Perform backups
 #
 # To automatically transfer backups to your local machine, add:
-#   after "backup:create", "backup:get"
+#   after "backup:create", "backup:download"
 #
 
 before "deploy:migrate", "backup:create"
@@ -22,7 +22,7 @@ namespace :backup do
   end
   
   desc "Retreive a backup from the server. Gets the latest by default, set :backup_version to specify which version to copy"
-  task :get, :roles => :db, :only => {:primary => true} do
+  task :download, :roles => :db, :only => {:primary => true} do
     version = fetch(:backup_version, latest)
     run "tar -C #{backup_path} -czf #{backup_path}/#{version}.tar.gz #{version}"
     `mkdir -p backups`
@@ -35,7 +35,7 @@ namespace :backup do
   desc "Creates a new remote backup and clones it to the local database"
   task :clone, :roles => :db, :only => {:primary => true} do
     create
-    get
+    download
     `rake db:backup:restore`
   end
   
