@@ -33,7 +33,7 @@ namespace :backup do
   end
   
   desc "Creates a new remote backup and clones it to the local database"
-  task :clone, :roles => :db, :only => {:primary => true} do
+  task :mirror, :roles => :db, :only => {:primary => true} do
     create
     download
     `rake db:backup:restore`
