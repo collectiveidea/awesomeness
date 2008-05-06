@@ -1,5 +1,5 @@
 load_tasks = <<-EOF
-load_paths.unshift File.expand_path(File.dirname(__FILE__) + '/../vendor/plugins/awesomeness/recipies')
+load_paths.unshift File.expand_path(File.dirname(__FILE__) + '/../vendor/plugins/awesomeness/recipes')
 load 'awesomeness'
 
 EOF
