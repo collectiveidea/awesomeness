@@ -1,19 +1,4 @@
 class Hash
-  # Usage { :a => 1, :b => 2, :c => 3}.except(:a) -> { :b => 2, :c => 3}
-  def except(*keys)
-    self.reject { |k,v| keys.include? k.to_sym }
-  end
-
-  # Replaces the hash without only the given keys.
-  def except!(*keys)
-    replace(except(*keys))
-  end
-
-  # Usage { :a => 1, :b => 2, :c => 3}.only(:a) -> {:a => 1}
-  def only(*keys)
-    self.reject { |k,v| !keys.include? k.to_sym }
-  end
-  
   # Usage {:a => [1,3,4], :b => [2,5]}.without(:a => 1)
   # returns {:a => [3,4], :b => [2,5]}
   def without(hash)
