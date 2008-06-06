@@ -17,4 +17,10 @@ class Array
   end
   alias_method_chain :uniq, :block
   
+  def pad(length, padding = nil)
+    returning dup do |a|
+      a << padding while length > a.length
+    end
+  end
+  
 end
