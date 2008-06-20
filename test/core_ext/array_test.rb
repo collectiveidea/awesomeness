@@ -6,16 +6,34 @@ class ArrayTest < Test::Unit::TestCase
   def test_pad
     a = [1,2,3]
     assert_equal [1,2,3,nil,nil], a.pad(5)
-    assert_equal [1,2,3], a
-    assert !a.equal?(a.pad(2))
-    assert_equal [1,2,3], a.pad(2)
-    assert_equal [1,2,3, 'foo'], a.pad(4, 'foo')
   end
   
-  def test_divide
-    assert_equal [[1,2,3,4,5],[6,7,8,9,10]], ((1..10).to_a / 2)
-    assert_equal [[1,2,3,4],[5,6,7,8],[9,10]], ((1..10).to_a / 3)
-    assert_equal [[1,2,3,4,5,6,7],[8,9,10,11,12,13]], ((1..13).to_a / 2)
+  def test_pad_does_not_exceed_length
+    a = [1,2,3]
+    assert_equal a, a.pad(2)
+    assert_equal a, a.pad(3)
   end
   
+  def test_pad_with_custom_padding
+    a = [1,2,3]
+    assert_equal [1,2,3,'foo'], a.pad(4, 'foo')
+  end
+  
+  def test_pad_does_not_modify_original
+    a = [1,2,3]
+    a.pad(4)
+    assert_equal 3, a.length
+  end
+  
+  def test_pad_does_not_modify_original
+    a = [1,2,3]
+    a.pad(4)
+    assert_equal 3, a.length
+  end
+  
+  def test_pad!
+    a = [1,2,3]
+    a.pad!(4, 'x')
+    assert_equal [1,2,3,'x'], a
+  end
 end
