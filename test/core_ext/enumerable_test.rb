@@ -36,4 +36,8 @@ class EnumerableTest < Test::Unit::TestCase
     assert_equal [[1,2,3,4,5,6,7],[8,9,10,11,12,13, 'foo']], ((1..13).to_a.chunk(2, 'foo'))
   end
   
+  def test_divide_by_zero
+    assert_equal [[],[]], [].chunk(2)
+  end
+  
 end
