@@ -1,19 +1,10 @@
 # These tasks replace the built-in Rails tasks for dumping and loading the schema,
 # allowing you to specify the FIXTURES_DIR to use for dumping and loading.
-
-# http://matthewbass.com/2007/03/07/overriding-existing-rake-tasks/
-Rake::TaskManager.class_eval do
-  def remove_task(task_name)
-    @tasks.delete(task_name.to_s)
-  end
-end
- 
-def remove_task(task_name)
-  Rake.application.remove_task(task_name)
+Rake.application.instance_eval do
+  @tasks.delete "db:fixtures:load"
+  @tasks.delete "db:fixtures:dump"
 end
 
-remove_task "db:fixtures:load"
-remove_task "db:fixtures:dump"
 
 namespace :db do  
   namespace :fixtures do
@@ -30,18 +21,19 @@ namespace :db do
     desc "Create YAML fixtures from data in the current environment's database. Dump specific tables using TABLES=x[,y,z]."
     task :dump => :environment do
       ActiveRecord::Base.establish_connection(RAILS_ENV.to_sym)
-      fixtures_dir = ENV['FIXTURES_DIR'] || 'test/fixtures'
+      fixtures_dir = ENV['FIXTURES_DIR'] || 
+         File.join(RAILS_ROOT, 'test', 'fixtures')
       skip_tables = ENV['SKIP_TABLES'] ? ENV['SKIP_TABLES'].split(/,/) : ["sessions"]
       tables = ENV['TABLES'] ? ENV['TABLES'].split(/,/) : ActiveRecord::Base.connection.tables
       sql = "SELECT * FROM %s LIMIT %d OFFSET %d"
-      limit = 50
+      limit = 500
       (tables - skip_tables).each do |table_name| 
         i = "000"
         offset = 0
         File.open("#{fixtures_dir}/#{table_name}.yml", 'w' ) do |file|
           while !(data = ActiveRecord::Base.connection.select_all(sql % [table_name, limit, offset])).empty?
             data.each do |record|
-              file.write({"#{table_name}_#{i.succ!}" => record}.to_yaml.gsub(/^---.*\n/, ''))
+              file.write({"#{table_name}_#{i.succ!}" => record}.to_yaml.sub(/^---.*\n/, ''))
             end
             offset += limit
           end
