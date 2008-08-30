@@ -18,7 +18,7 @@ class Range
   end
   
   alias_method :original_step, :step
-  def step(value, &block)
+  def step(value = 1, &block)
     if block_given?
       original_step(value, &block)
     else
