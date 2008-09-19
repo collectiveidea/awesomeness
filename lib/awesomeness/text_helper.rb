@@ -22,13 +22,15 @@ module ActionView
       end
       
       # Better versions of standard truncate and excerpt
-      def truncate_with_better_default(text, length = 30, truncate_string = "…")
-        truncate_without_better_default(text, length, truncate_string)
+      def truncate_with_better_default(text, options)
+        options = {:length => 30, :truncate_string => "…"}.merge(options)
+        truncate_without_better_default(text, options)
       end      
       alias_method_chain :truncate, :better_default
       
-      def excerpt_with_better_default(text, phrase, radius = 100, excerpt_string = "…")
-        excerpt_without_better_default(text, phrase, radius, excerpt_string)
+      def excerpt_with_better_default(text, phrase, options)
+        options = {radius => 100, excerpt_string => "…"}.merge(options)
+        excerpt_without_better_default(text, phrase, options)
       end
       alias_method_chain :excerpt, :better_default
       
