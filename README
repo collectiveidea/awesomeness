@@ -5,6 +5,10 @@ A collection of stuff that we use often, but not generic enough to go in another
 
 If you've stumbled across this and love/hate it, let us know!
 
+== Compatability
+
+This plugin is compatible with edge-rails that is slated to be Rails 2.2.  For a version compatible with 2.1, check out the "rails-2.1" tag from git.
+
 == Core Extensions
 
 * Object#tap (http://moonbase.rydia.net/mental/blog/programming/eavesdropping-on-expressions)
