@@ -28,7 +28,4 @@ module CollectiveIdea #:nodoc:
   end
 end
 
-# only for edge rails
-if ActionController::AbstractRequest.instance_methods.include?('url')
-  ActionController::Base.send :include, CollectiveIdea::ActionController::TrailingSlash
-end
+ActionController::Base.send :include, CollectiveIdea::ActionController::TrailingSlash
