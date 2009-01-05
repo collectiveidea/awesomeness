@@ -1,5 +1,14 @@
 class Array
   
+  def randomize(limit = length)
+    choices = dup
+    returning([]) do |result|
+      [limit, length].min.times do
+        result << choices.delete_at(Kernel.rand(choices.length))
+      end
+    end.compact
+  end
+  
   def uniq_with_block!(&block)
     uniq_without_block!
     if block_given?

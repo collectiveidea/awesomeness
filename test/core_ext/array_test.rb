@@ -36,4 +36,13 @@ class ArrayTest < Test::Unit::TestCase
     a.pad!(4, 'x')
     assert_equal [1,2,3,'x'], a
   end
+  
+  def test_randomize_length
+    assert_equal 4, (1..10).to_a.randomize(4).length
+  end
+  
+  def test_randomize_with_fewer_options
+    a = [1,2,3]
+    assert_equal 3, a.randomize(10).length
+  end
 end
