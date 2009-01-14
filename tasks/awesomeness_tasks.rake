@@ -9,3 +9,7 @@ task :rename_all_to_erb do |t|
     puts `svn mv #{file} #{file.gsub(/\.rhtml$/, '.html.erb')}`
   end
 end
+
+
+desc "Run migrations and prepare the test database"
+task :db => ['db:migrate', 'db:test:prepare']
