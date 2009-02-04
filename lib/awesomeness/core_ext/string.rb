@@ -6,4 +6,8 @@ class String
   def widont
     self.gsub(/([^\s])\s+([^\s]+)(\s*)$/, '\1 \2\3')
   end
+  
+  def mb_chars
+    chars
+  end unless ''.respond_to?(:mb_chars)
 end
