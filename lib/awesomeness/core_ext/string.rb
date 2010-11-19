@@ -1,3 +1,4 @@
+# encoding: utf-8
 class String
   # Widon't
   # Based on the original by Shaun Inman: http://shauninman.com/archive/2006/08/22/widont_wordpress_plugin
